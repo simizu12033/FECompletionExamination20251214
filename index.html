@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2025.12.14 FE修了試験・基本情報技術者 科目A試験免除・全60問の試験演習と図解復習">
+  <title>2025.12.14 FE修了試験｜問題演習と図解復習</title>
+  <link rel="stylesheet" href="styles.css?v=20261107-01">
+  <link rel="stylesheet" href="visuals.css?v=20261107-01">
+  <link rel="stylesheet" href="flow.css?v=20261107-01">
+  <link rel="stylesheet" href="report.css?v=20261107-01">
+  <link rel="stylesheet" href="terms.css?v=20261107-01">
+  <link rel="stylesheet" href="classroom.css?v=20261107-01">
+  <link rel="stylesheet" href="revision.css?v=20261107-01">
+  <link rel="stylesheet" href="enhancements.css?v=20261107-01">
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar">
+      <a class="brand" href="#top"><span>FE</span> 2025.12.14 FE修了試験</a>
+      <div class="progress-wrap" aria-label="進捗">
+        <span id="progressText">試験 0 / 60</span>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+    </nav>
+    <div class="hero-inner" id="top">
+      <p class="eyebrow">2025.12.14 FE修了試験｜基本情報技術者 科目A試験免除</p>
+      <p class="lesson-label">NEW LESSON / 新しい学びのスタート</p><h1>ここから、<br><em>理解を積み重ねる。</em></h1>
+      <p class="lead">このシステムでは、再回答を含めて全60問の正答を得ることが課題です。用語の説明は、カードや問題ごとの個人用メモで練習できます。解説・図・用語カードは、必要なときに使うリファレンスです。</p>
+      <p class="save-note">
+        <strong>学習内容は自動保存されます。</strong>
+        同じ端末・同じブラウザで同じURLを再度開くと、採点結果、回答内容、学習レポート、理解チェックが前回と同じ状態で表示され、復習を続けられます。
+        <small>※ ブラウザのサイトデータを削除した場合は保存内容も消去されます。</small>
+      </p>
+      <nav class="quick-links" aria-label="学習メニュー"><a href="#q1">問題を解く →</a><a href="#termLearning">用語リファレンス</a><a href="source-map.html">出典を確認</a></nav><div class="hero-stats">
+        <div><strong>60</strong><span>全問題</span></div>
+        <div><strong>60</strong><span>参考辞書の収録数（任意）</span></div>
+        <div><strong>60</strong><span>問題課題の目標正答数</span></div>
+        <div><strong>90</strong><span>演習目安（分）</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="resultsTop" class="phase-panel">
+      <div id="phaseSteps" class="phase-steps">
+        <div data-step="exam"><b>1</b><span>試験に解答</span></div>
+        <i>→</i>
+        <div data-step="score"><b>2</b><span>採点結果</span></div>
+        <i>→</i>
+        <div data-step="review"><b>3</b><span>再回答で正答</span></div>
+        <i>→</i>
+        <div data-step="complete"><b>4</b><span>全60問正答</span></div>
+      </div>
+      <div id="phaseMessage" class="phase-message"></div>
+      <div class="phase-actions retry-grade-area" hidden>
+        <button class="primary" type="button" data-action="retry-grade">再回答を採点する</button>
+      </div>
+      <div id="scoreSummary" class="score-summary" hidden></div>
+      <div id="answerLegend" class="answer-legend" hidden>
+        <span><i class="correct"></i>緑：正解</span>
+        <span><i class="wrong"></i>赤：不正解</span>
+        <span><i class="understood"></i>枠線：任意の理解メモあり</span>
+      </div>
+    </section>
+
+    <section id="learningReport" class="learning-report" hidden>
+      <div class="report-heading">
+        <p class="section-kicker">FIRST ATTEMPT REPORT</p>
+        <h2>初回採点の学習レポート</h2>
+        <p id="reportDate"></p>
+      </div>
+      <div class="report-grid">
+        <section><h3>分野別正答率</h3><div id="fieldStats" class="field-stats"></div></section>
+        <section class="strength-card"><h3>得意分野・苦手分野</h3><div id="strengthWeakness"></div></section>
+      </div>
+      <section class="retest-card">
+        <h3>1週間後にもう一度解きたい問題</h3>
+        <p id="retestDate"></p>
+        <div id="retestQuestions" class="retest-questions"></div>
+      </section>
+      <section class="keywords-card">
+        <h3>この試験問題で覚えたい重要ワード</h3>
+        <div id="importantWords" class="important-words"></div>
+      </section>
+    </section>
+
+    <section id="reviewToolbar" class="toolbar" aria-label="復習問題の絞り込み" hidden>
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="用語・問題番号で検索"></label>
+      <div id="filters" class="filters"></div>
+      <label class="question-focus">復習対象<select id="questionFocus"><option value="all">全問題</option><option value="wrong">初回で間違えた問題</option><option value="unresolved">再回答で未解決の問題</option><option value="recall">説明をもう一度確認する問題</option></select></label><label class="toggle"><input id="onlyUnlearned" type="checkbox"><span>未理解だけ</span></label>
+    </section>
+
+    <section class="study-guide" aria-labelledby="studyGuideTitle">
+      <p class="section-kicker">PAST QUESTIONS → UNDERSTANDING</p><h2 id="studyGuideTitle">課題と、必要なときに使う参考資料。</h2>
+      <div class="study-guide-steps"><p><b>問題課題</b><span>採点と再回答で全60問の正答を得る。</span></p><p><b>説明練習（任意）</b><span>用語カードや個人用メモで自分の言葉にする。</span></p><p><b>任意のリファレンス</b><span>解説・図・辞書・参考演習は、必要な部分を参照する。</span></p></div>
+      <div class="practice-launch"><label for="practiceSelect">参考演習（任意）</label><select id="practiceSelect"><option value="4">問4 格子の最短経路</option><option value="8">問8 CPIと命令実行時間</option><option value="25">問25 サブネットのネットワークアドレス</option><option value="50">問50 価格と需要の一次関係</option><option value="59">問59 目標利益と客席回転数</option></select><button id="openPractice" type="button" class="primary">演習を開く</button></div><p class="study-guide-note">演習を開くと、その問題の解説・正答が表示されます。初回採点の前に自力で試したい場合は、先に問題へ回答してください。</p>
+    </section>
+    <section class="overview">
+      <div><p class="section-kicker">QUESTION MAP</p><h2 id="listTitle">試験問題</h2></div>
+      <div id="questionMap" class="question-map" aria-label="問題番号一覧"></div>
+    </section>
+
+    <section class="exam-control-area" data-exam-controls>
+      <p data-exam-message>60問すべてに回答すると採点できます。</p>
+      <div class="exam-control-buttons">
+        <button type="button" data-action="unanswered">未回答へ移動</button>
+        <button class="primary" type="button" data-action="submit" disabled>60問を採点する</button>
+        <button type="button" data-action="reset">最初からやり直す</button>
+      </div>
+    </section>
+
+    <section id="questions" class="questions"></section>
+    <p id="emptyState" class="empty" hidden>条件に一致する問題がありません。</p>
+    <section class="exam-control-area retry-grade-area" hidden>
+      <p>再回答を選び終えたら採点してください。</p>
+      <div class="exam-control-buttons">
+        <button class="primary" type="button" data-action="retry-grade">再回答を採点する</button>
+      </div>
+    </section>
+    <section class="exam-control-area" data-exam-controls>
+      <p data-exam-message>60問すべてに回答すると採点できます。</p>
+      <div class="exam-control-buttons">
+        <button type="button" data-action="unanswered">未回答へ移動</button>
+        <button class="primary" type="button" data-action="submit" disabled>60問を採点する</button>
+        <button type="button" data-action="reset">最初からやり直す</button>
+      </div>
+    </section>
+    <section id="termLearning" class="term-learning">
+      <div class="term-head">
+        <div>
+          <p class="section-kicker">TERM CARDS</p>
+          <h2>用語リファレンス（任意）</h2>
+          <p>60問の学習テーマと関連用語を60枚に整理した参考辞書です。必要なテーマから復習できます。カードの自己評価に応じて次の復習予定を設定できます。</p>
+        </div>
+        <div id="termStats" class="term-stats" aria-label="用語カードの進捗"></div>
+      </div>
+      <div class="term-tools choice-tools">
+ <label>用語・問題番号を検索<input id="termSearch" type="search" placeholder="例：DNS、問23、23"></label>
+ <button type="button" id="termSearchButton" class="primary">検索</button><label>問題<select id="termQuestion"><option value="">全60問</option><option value="1">問1</option><option value="2">問2</option><option value="3">問3</option><option value="4">問4</option><option value="5">問5</option><option value="6">問6</option><option value="7">問7</option><option value="8">問8</option><option value="9">問9</option><option value="10">問10</option><option value="11">問11</option><option value="12">問12</option><option value="13">問13</option><option value="14">問14</option><option value="15">問15</option><option value="16">問16</option><option value="17">問17</option><option value="18">問18</option><option value="19">問19</option><option value="20">問20</option><option value="21">問21</option><option value="22">問22</option><option value="23">問23</option><option value="24">問24</option><option value="25">問25</option><option value="26">問26</option><option value="27">問27</option><option value="28">問28</option><option value="29">問29</option><option value="30">問30</option><option value="31">問31</option><option value="32">問32</option><option value="33">問33</option><option value="34">問34</option><option value="35">問35</option><option value="36">問36</option><option value="37">問37</option><option value="38">問38</option><option value="39">問39</option><option value="40">問40</option><option value="41">問41</option><option value="42">問42</option><option value="43">問43</option><option value="44">問44</option><option value="45">問45</option><option value="46">問46</option><option value="47">問47</option><option value="48">問48</option><option value="49">問49</option><option value="50">問50</option><option value="51">問51</option><option value="52">問52</option><option value="53">問53</option><option value="54">問54</option><option value="55">問55</option><option value="56">問56</option><option value="57">問57</option><option value="58">問58</option><option value="59">問59</option><option value="60">問60</option></select></label>
+ <label>学習状態<select id="termReviewMode"><option value="all">全て</option><option value="due">今日の復習（予定時刻が到来）</option><option value="weak">不安・説明できない</option><option value="unseen">未学習</option></select></label><button id="todayReview" type="button">今日の復習へ</button>
+ 
+ </div><p class="review-schedule-note">カードを評価すると次の復習を予定します。「説明できた」は1→3→7→14→30日へ段階的に延長。「少し不安」は翌日、「説明できない」は10分後。繰返し同日に評価するだけでは段階を進めません。</p><div class="term-layout">
+        <aside class="term-side"><section class="term-list-wrap"><h3>カード一覧</h3><div id="termList" class="term-list"></div></section>
+          <section class="term-weak">
+            <h3>復習におすすめの用語</h3>
+            <div id="termWeakLinks" class="term-weak-links"></div>
+          </section>
+        </aside>
+        <section class="term-study" aria-label="用語カード学習">
+          <div class="term-nav">
+            <button id="termPrev" type="button">前へ</button>
+            <span id="termPosition"></span>
+            <button id="termNext" type="button">次へ</button>
+          </div>
+          <div id="termCard" class="term-card"></div>
+          <button id="termReset" class="term-reset" type="button">用語カードの記録をリセット</button>
+        </section>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-notes"><p class="release-version">教材バージョン：20261107-01（2025.12.14版）</p>
+      <p>2025.12.14 FE修了試験（基本情報技術者 科目A試験免除）・学習用解説</p>
+      <p class="source-note">問題画像：提供された「画像ファイル/questions_20251214_png」q01.png〜q60.png。原問題：tokurei_Mondai_20251214_FE.pdf。正答：提供された tokurei_ans_20251214_FE.pdf。解説・図解・用語カードは学習用に作成した教材です。</p>
+    </div>
+    <div class="footer-links">
+      <a href="#termLearning">重要用語カード</a>
+      <a href="diagram-gallery.html">全60問の図解一覧</a><a href="reference-map.html">問題・出典対応表</a>
+      <a href="source-map.html">出典の分析</a>
+      <a href="#top">ページ上部へ ↑</a><button type="button" data-action="reset">解答記録をリセット</button>
+    </div>
+  </footer>
+
+  <template id="questionTemplate">
+    <article class="question-card">
+      <div class="card-head">
+        <div class="number"></div>
+        <div class="heading"><p class="meta"></p><h2></h2></div>
+        <label class="understand-check"><input type="checkbox"><span>理解メモ（任意）</span></label>
+      </div>
+      <section class="problem-panel">
+        <div class="problem-label"><span>問題</span><small>問題文・選択肢・図表</small></div>
+        <img loading="lazy" alt="">
+      </section>
+      <fieldset class="answer-input">
+        <legend>あなたの解答</legend>
+        <label><input type="radio" value="ア"><span>ア</span></label>
+        <label><input type="radio" value="イ"><span>イ</span></label>
+        <label><input type="radio" value="ウ"><span>ウ</span></label>
+        <label><input type="radio" value="エ"><span>エ</span></label>
+      </fieldset>
+      <div class="result-line"></div>
+      <section class="review-content">
+        <div class="answer-strip"><span>正解</span><strong></strong><p></p></div>
+        <section class="reference-core" aria-label="図と問題の対応">
+          <h3>図で確かめる</h3>
+          <figure class="visual"><div class="diagram"></div><figcaption></figcaption></figure>
+          <section class="diagram-guide"></section>
+        </section>
+        <details class="reference-details explanation-details">
+          <summary>詳しい仕組み・解く手順・具体例を読む</summary>
+          <div class="explanation reference-body">
+            <h3>なぜこの答えになる？</h3>
+            <p class="summary"></p>
+            <ol class="reasoning"></ol>
+            <div class="trap"><h3>ひっかけポイント</h3><p></p></div>
+          </div>
+        </details>
+      </section>
+    </article>
+  </template>
+
+  <dialog id="confirmDialog" class="confirm-dialog">
+    <h2>60問を採点しますか？</h2>
+    <p>採点後、初回に正答に至らなかった問題は正答を隠したまま再回答できます。解説はボタンで確認でき、再回答の正誤はその場では表示しません。</p>
+    <div><button id="cancelSubmit" type="button">戻る</button><button id="confirmSubmit" class="primary" type="button">採点する</button></div>
+  </dialog>
+
+  <script src="questions.js?v=20261107-01"></script>
+  <script src="terms.js?v=20261107-01"></script>
+  <script src="app.js?v=20261107-01"></script>
+  <script src="enhancements.js?v=20261107-01"></script>
+  <script src="terms-ui.js?v=20261107-01"></script>
+  <script src="learning.js?v=20261107-01"></script>
+</body>
+</html>
+
