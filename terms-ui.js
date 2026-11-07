@@ -28,7 +28,7 @@ function filteredTerms(){
  const number=query.match(/^(?:問)?(\d+)$/)?.[1];
  return TERMS.filter(t=>(!termState.question||t.questions.includes(Number(termState.question)))
    &&(termState.reviewMode==='all'||(termState.reviewMode==='due'?FEReview.due(termState.progress[t.id]):termState.reviewMode==='unseen'?!termState.progress[t.id]:['weak','shaky'].includes(termState.progress[t.id]?.status)))
-   &&(!query||(number?t.questions.includes(Number(number)):[t.term,t.fullName||"",t.nameMeaning||"",t.wordClue||"",t.meaning,t.trap,t.field].join(' ').toLowerCase().includes(query))));
+   &&(!query||(number?t.questions.includes(Number(number)):[t.term,...(t.aliases||[]),t.fullName||"",t.nameMeaning||"",t.wordClue||"",t.meaning,t.trap,t.field].join(' ').toLowerCase().includes(query))));
 }
 function termReviewContext(){
   if(typeof window.getTermReviewState==="function")return window.getTermReviewState();
@@ -115,6 +115,7 @@ function renderTerms(){
         <span class="term-face back">
           <small>用語・考え方の意味</small>
           <strong>${termEsc(active.term)}</strong>
+          ${active.aliases?.length?`<p class="term-aliases">別名・表記：${active.aliases.map(termEsc).join(" ／ ")}</p>`:""}
           ${active.fullName?`<p class="acronym-name"><b>${termEsc(active.abbreviation)}の正式名称</b><span lang="en">${termEsc(active.fullName)}</span><span>${termEsc(active.nameMeaning)}</span></p>`:""}
           ${active.wordClue?`<p class="word-clue">${termEsc(active.wordClue)}</p>`:""}
           <p>${termEsc(active.meaning)}</p>
@@ -158,7 +159,7 @@ function initTerms(){
   const resetFilter=()=>{termState.active=0;termState.flipped=false;renderTerms()};
   document.querySelector('#termReviewMode').onchange=e=>{termState.reviewMode=e.target.value;resetFilter()};
   document.querySelector('#todayReview').onclick=()=>{termState.query="";termState.question="";termState.reviewMode="due";document.querySelector('#termSearch').value="";document.querySelector('#termQuestion').value="";document.querySelector('#termReviewMode').value="due";resetFilter()};
-  const runTermSearch=()=>{termState.query=document.querySelector('#termSearch').value;resetFilter()};
+  const runTermSearch=()=>{const query=document.querySelector('#termSearch').value;if(termState.query===query)return;termState.query=query;resetFilter()};
   document.querySelector('#termSearch').oninput=runTermSearch;
   document.querySelector('#termSearch').onchange=runTermSearch;
   document.querySelector('#termSearch').onkeydown=e=>{if(e.key==='Enter')runTermSearch()};
