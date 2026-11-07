@@ -21,6 +21,9 @@ window.FEStudy=(()=>{
  const save=()=>storage.setItem(KEY,JSON.stringify(state));
  const fmt=x=>Number(x).toLocaleString('ja-JP',{maximumFractionDigits:5});
  const CONFIG={
+ 3:{title:'7ビット値と偶数パリティ',fields:[['code','7ビットの値（10進数）',122,0,127]],calc:p=>{const bits=p.code.toString(2).padStart(7,'0'),ones=[...bits].filter(x=>x==='1').length,parity=ones%2;return `7ビット ${bits}（1が${ones}個）。先頭に${parity}を付加 → ${parity}${bits} → 16進 ${(p.code+parity*128).toString(16).toUpperCase().padStart(2,'0')}`}},
+ 12:{title:'MTBF・MTTRと稼働率',fields:[['mtbf','平均故障間隔MTBF（時間）',900,1,100000],['mttr','平均修理時間MTTR（時間）',100,1,100000]],calc:p=>`稼働率＝${fmt(p.mtbf)}÷(${fmt(p.mtbf)}＋${fmt(p.mttr)})＝${fmt(p.mtbf/(p.mtbf+p.mttr)*100)}％。MTBFを長く、MTTRを短くすると改善します。`},
+ 57:{title:'加工時間を変えて4つの順序を比較',fields:[['a1','AのM1加工時間',7,1,50],['a2','AのM2加工時間',3,1,50],['b1','BのM1加工時間',5,1,50],['b2','BのM2加工時間',6,1,50],['c1','CのM1加工時間',4,1,50],['c2','CのM2加工時間',2,1,50]],calc:p=>{const orders=['ACB','BAC','BCA','CBA'];const results=orders.map(order=>{let m1=0,m2=0;for(const v of order){const k=v.toLowerCase();m1+=p[k+'1'];m2=Math.max(m1,m2)+p[k+'2'];}return{order,time:m2}});const best=Math.min(...results.map(r=>r.time));return results.map(r=>`${r.order.split('').join('→')}: ${r.time}時間${r.time===best?'（4つの候補の中で最短）':''}`).join(' ／ ')}},
  4:{title:'格子の経路数を変える',fields:[['x','右へ進む回数',2,0,12],['y','上へ進む回数',2,0,12]],calc:p=>{let v=1;for(let i=1;i<=p.y;i++)v=v*(p.x+i)/i;return `最短経路は ${Math.round(v)} 通り。Rを通る場合は前半と後半の通り数を掛けます。`}},
  8:{title:'クロック周波数と実行時間',fields:[['cycles','合計サイクル数',30,1,100000],['mhz','周波数（MHz）',100,1,10000]],calc:p=>`${p.cycles} ÷ ${p.mhz} × 1000 ＝ ${fmt(p.cycles/p.mhz*1000)} ns`},
  25:{title:'最終オクテットと/28のネットワーク',fields:[['host','IPアドレスの最終オクテット',19,0,255]],calc:p=>`ネットワークは10.170.70.${Math.floor(p.host/16)*16}、ブロードキャストは10.170.70.${Math.floor(p.host/16)*16+15}（/28）`},
